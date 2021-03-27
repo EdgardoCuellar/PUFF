@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<title>PUFF DB</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/css_login.css">
+<link rel="stylesheet" href="css/gradient_animate.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+<body>
+  <div class="register-div" id="register">
+    <div class='-line'></div>
+        <div class='window'>
+          <div class='overlay'></div>
+          <div class='content'>
+            <div class='welcome'>CoviDB</div>
+            <div class='input-fields'>
+              <form action="register.php" method="post" accept-charset="utf-8">
+                <input type='text' placeholder='Username' class='input-line full-width' name="username"></input>
+                <input type='email' placeholder='Email' class='input-line full-width' name="email"></input>
+                <input type='password' placeholder='Password' class='input-line full-width' name="password"></input>
+                <div><button class='register-btn full-width' type="submit" value="Submit">Register</button></div>
+              </form>
+            </div>
+          <span class='error-txt'>already exist</span>
+        <div><a href="#login">go to login</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-div" id="login">
+    <div class='-line'></div>
+        <div class='window'>
+          <div class='overlay'></div>
+          <div class='content'>
+            <div class='welcome'>CoviDB</div>
+              <form action="login.php" method="post" accept-charset="utf-8">
+                <input type='text' placeholder='Username' class='input-line full-width' name="username"></input>
+                <input type='password' placeholder='Password' class='input-line full-width' name="password"></input>
+                <div><button class='register-btn full-width' type="submit" value="Submit">login</button></div>
+              </form>
+          <span class='error-txt'>already exist</span>
+        <div><a href="#register">go to register</a></div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
