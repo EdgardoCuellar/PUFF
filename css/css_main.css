@@ -303,6 +303,25 @@ tbody td {
   outline: 1px solid slategrey;
 }
 
+body::-webkit-scrollbar {
+  width: 0.4em;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+  background: #37474F;
+}
+ 
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #fff; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #ddd; 
+}
 /* send button*/
 .btn-send {
   position: absolute;
