@@ -2,7 +2,7 @@
     session_start();
 
     function login($username, $password){
-        $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'puff-user', 'salade2fruit');
+        $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
         $username = htmlspecialchars($username);
         if (isset($username) && isset($password)) {
             $req_login = $bdd->prepare('SELECT * FROM User WHERE username = ? LIMIT 1');
@@ -29,6 +29,6 @@
     if (isset($_POST['submit_login'])) {
         $res = login($_POST['username'], $_POST['password']);
         error_log($res);
-        header('Location: ../index.html?' . $res . '#login');
+        header('Location: ../db_main.php?');
     }
 ?>
