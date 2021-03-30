@@ -6,7 +6,9 @@ body {
     -webkit-animation: gradient 30s ease infinite;
     -moz-animation: gradient 30s ease infinite;
     animation: gradient 30s ease infinite;
+}
 
+.content {
     -webkit-animation: fadein 0.75s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 0.75s; /* Firefox < 16 */
     -ms-animation: fadein 0.75s; /* Internet Explorer */
