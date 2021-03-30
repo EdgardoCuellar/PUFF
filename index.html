@@ -19,7 +19,7 @@
                 <input type='text' placeholder='Username' class='input-line full-width' name="username" autocomplete="off"></input>
                 <input type='email' placeholder='Email' class='input-line full-width' name="email" autocomplete="off"></input>
                 <input type='password' placeholder='Password' class='input-line full-width' name="password" autocomplete="off"></input>
-                <div><button class='register-btn full-width' type="submit" value="Submit">Register</button></div>
+                <div><button class='register-btn full-width' type="submit" name="submit_register" value="Submit">Register</button></div>
               </form>
             </div>
           <span class='error-txt'>already exist</span>
@@ -34,10 +34,10 @@
           <div class='overlay'></div>
           <div class='content'>
             <div class='welcome'>CoviDB</div>
-              <form action="login.php" method="post" accept-charset="utf-8">
+              <form action="src/login.php" method="post" accept-charset="utf-8">
                 <input type='text' placeholder='Username' class='input-line full-width' name="username" autocomplete="off"></input>
                 <input type='password' placeholder='Password' class='input-line full-width' name="password" autocomplete="off"></input>
-                <div><button class='register-btn full-width' type="submit" value="Submit">login</button></div>
+                <div><button class='register-btn full-width' type="submit" name="submit_login" value="Submit">login</button></div>
               </form>
           <span class='error-txt'>already exist</span>
         <div><a href="#register">go to register</a></div>
