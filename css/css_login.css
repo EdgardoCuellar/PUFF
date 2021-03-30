@@ -2,7 +2,6 @@
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
-	display: flex;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	-ms-flex-align: center;
@@ -13,13 +12,13 @@
 	justify-content: center;
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
+  flex-direction: column;
 }
 
 .login-div {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
-	display: flex;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	-ms-flex-align: center;
@@ -30,6 +29,7 @@
 	justify-content: center;
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
+  flex-direction: column;
 }
 
 body,
@@ -37,7 +37,7 @@ html {
 	margin: 0;
 	height: 100%;
   width: 100%;
-	overflow: hidden;
+  overflow: hidden;
 	scroll-behavior: smooth;
 }
 
@@ -77,8 +77,8 @@ button:focus {
   font-size: 1.2rem;
   font-weight: 300;
   line-height: 2.5em;
-  margin-top: 2em;
-  margin-bottom: 25px;
+  margin-top: 1em;
+  margin-bottom: 20px;
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
 }
@@ -92,14 +92,13 @@ button:focus {
 
 .input-line {
   background: none;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   line-height: 2.4em;
   color: #fff;
   font-weight: 300;
   letter-spacing: 0px;
   letter-spacing: 0.02rem;
-  font-size: 19px;
-  font-size: 1.2rem;
+  font-size: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
@@ -107,6 +106,10 @@ button:focus {
 
 .full-width {
   width: 100%;
+}
+
+.options {
+  opacity: 0.85;
 }
 
 .input-fields {
@@ -145,15 +148,16 @@ button:focus {
 
 .welcome {
   font-weight: 200;
-  margin-top: 50px;
+  margin-top: 15px;
   text-align: center;
-  font-size: 40px;
-  font-size: 2.5rem;
+  font-size: 35px;
+  font-size: 2.25rem;
   letter-spacing: 0px;
   letter-spacing: 0.05rem;
 }
 
 .error-txt {
+  margin: 0 auto;
 	color: #FFEBEE;
 }
 
@@ -170,10 +174,14 @@ button:focus {
   flex-flow: column;
   box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-  height: 450px;
+  height: 585px;
   width: 360px;
   background: #fff;
   background: url('https://pexels.imgix.net/photos/27718/pexels-photo-27718.jpg?fit=crop&w=1280&h=823') top left no-repeat;
+}
+
+.login-div .window {
+  height: 315px;
 }
 
 .overlay {
@@ -208,4 +216,107 @@ button:focus {
     width: 100%;
     height: 100%;
   }
+}
+
+.goto {
+  display: block;
+  color: #FFF;
+  text-decoration: none;   
+  font-size: 24px; 
+}
+
+.register-div .goto {
+  margin-top: 20px;
+}
+
+.login-div .goto {
+  margin-bottom: 20px;
+}
+
+/* CHECKBOX HORRIBLE */
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background: none;
+  border: 1px solid #eee;
+}
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  cursor: pointer;
+  font-size: 17px;
+  opacity: 0.85;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: none;
+}
+
+
+.checkspan {
+  opacity: 0.95;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  opacity: 0.5;
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked */
+.container input:checked ~ .checkmark {
+  background: none;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 6.5px;
+  top: 3px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

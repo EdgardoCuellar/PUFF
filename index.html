@@ -16,34 +16,42 @@
             <div class='welcome'>CoviDB</div>
             <div class='input-fields'>
               <form action="register.php" method="post" accept-charset="utf-8">
+                <input type='text' placeholder='Last name' class='input-line full-width' name="name"></input>
+                <input type='text' placeholder='First name' class='input-line full-width' name="firstname"></input>
                 <input type='text' placeholder='Username' class='input-line full-width' name="username"></input>
-                <input type='email' placeholder='Email' class='input-line full-width' name="email"></input>
+                <input type='text' placeholder='Address' class='input-line full-width' name="address"></input>
                 <input type='password' placeholder='Password' class='input-line full-width' name="password"></input>
+                <label class="container"><span class="checkspan">Epidémiologiste</span>
+                  <input type="checkbox" >
+                  <span class="checkmark"></span>
+                </label>
+                <input type='text' placeholder='Center' class='input-line full-width options' name="center"></input>
+                <input type='text' placeholder='Phone' class='input-line full-width options' name="phone"></input>
                 <div><button class='register-btn full-width' type="submit" value="Submit">Register</button></div>
               </form>
             </div>
           <span class='error-txt'>already exist</span>
-        <div><a href="#login">go to login</a></div>
       </div>
     </div>
+    <div><a href="#login" class="goto">↓ Go to login ↓</a></div>
   </div>
-
   <div class="login-div" id="login">
+    <div><a href="#register" class="goto">↑ Go to register ↑</a></div>
     <div class='-line'></div>
         <div class='window'>
           <div class='overlay'></div>
           <div class='content'>
             <div class='welcome'>CoviDB</div>
+            <div class='input-fields'>
               <form action="login.php" method="post" accept-charset="utf-8">
                 <input type='text' placeholder='Username' class='input-line full-width' name="username"></input>
                 <input type='password' placeholder='Password' class='input-line full-width' name="password"></input>
                 <div><button class='register-btn full-width' type="submit" value="Submit">login</button></div>
               </form>
+            </div>
           <span class='error-txt'>already exist</span>
-        <div><a href="#register">go to register</a></div>
       </div>
     </div>
   </div>
-  
 </body>
 </html>
