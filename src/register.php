@@ -2,7 +2,7 @@
     session_start();
     
     function register($first_name, $last_name, $username, $password, $address, $isEpidemiologist, $center, $phone){
-        $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'puff-user', 'salade2fruit');
+        $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
         
         if (isset($username) && isset($password) && isset($last_name) && isset($first_name) && isset($address)) {
             
@@ -57,6 +57,6 @@
         
     if (isset($_POST['submit_register'])) {
         $res = register($_POST["firstname"], $_POST["name"], $_POST["username"], $_POST["password"], $_POST["address"], $_POST["isEpidemiologist"], $_POST["center"], $_POST["phone"]);
-        header('Location: ../index.html?' . $res . '#login');
+        header('Location: ../db_main.php?');
     }
     ?>

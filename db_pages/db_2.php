@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  include("../src/secure.php");
+  include("../src/profile.php");
+  $profile_info = profile($_SESSION['id']);
+
+?>
+
 <!DOCTYPE html>
 <html>
 <title>PUFF DB</title>
@@ -10,15 +18,27 @@
     <div class='window'>
       <div class='overlay'></div>
       <div class="profile">
-        <span class="user-name">EDO</span>
-        <span class="user-type">Epidemiologiste</span>
+        <span class="user-name"> <?php echo $profile_info["username"]; ?> </span>
+        <span class="user-type">
+          <?php 
+            if ($profile_info["isEpidemiologist"]) {
+              echo "Epidemiologist";
+            } else {
+              echo "Visiteur";
+            }
+          ?>
+        </span>
         <br><hr>
-        <span class="user-info">Les requettes possibles sont:</span>
-          <span class="infos-liste">Select</span>
-          <span class="infos-liste">Insert</span>
-          <span class="infos-liste">Delete</span>
-          <span class="infos-liste">Update</span>
-        <button class='disconnect-btn' type="submit" value="Submit">Logout</button>
+        <span class="user-info">Vos requêtes possibles sont:</span>
+          <?php 
+            echo "<span class='infos-liste'>Select</span>";
+            if ($profile_info["isEpidemiologist"]) {
+              echo "<span class='infos-liste'>Insert</span>";
+              echo "<span class='infos-liste'>Delete</span>";
+              echo "<span class='infos-liste'>Update</span>";
+            }
+          ?>
+        <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
           <div class='title-db'>Request 2</div>
@@ -56,13 +76,13 @@
       </div>
     </div>
     <div class="nav-bar">
-      <a href="../db_main.html" class="nav-btn">M</a>
-      <a href="db_1.html"  class="nav-btn">1</a>
-      <a href="db_2.html"  class="nav-btn">2</a>
-      <a href="db_3.html"  class="nav-btn">3</a>
-      <a href="db_4.html"  class="nav-btn">4</a>
-      <a href="db_5.html"  class="nav-btn">5</a>
-      <a href="db_6.html"  class="nav-btn">6</a>
+      <a href="../db_main.php" class="nav-btn">M</a>
+      <a href="db_1.php"  class="nav-btn">1</a>
+      <a href="db_2.php"  class="nav-btn">2</a>
+      <a href="db_3.php"  class="nav-btn">3</a>
+      <a href="db_4.php"  class="nav-btn">4</a>
+      <a href="db_5.php"  class="nav-btn">5</a>
+      <a href="db_6.php"  class="nav-btn">6</a>
     </div>
   </div>
 </body>

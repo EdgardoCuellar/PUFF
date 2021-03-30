@@ -1,8 +1,17 @@
 <?php
   session_start();
   include("src/secure.php");
+  include("src/profile.php");
   $profile_info = profile($_SESSION['id']);
 
+  $time_start = microtime(true);
+  $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+  $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  if (isset($_POST['request_user'])) {
+    $sth = $bdd->query($_POST['request_user']);
+  }
+  $time_end = microtime(true);
+  $exec_time = $time_end - $time_start;
 ?>
 
 <!DOCTYPE html>
@@ -18,179 +27,85 @@
       <div class='overlay'></div>
       <div class="profile">
         <span class="user-name"> <?php echo $profile_info["username"]; ?> </span>
-        <span class="user-type">Epidemiologiste</span>
+        <span class="user-type">
+          <?php 
+            if ($profile_info["isEpidemiologist"]) {
+              echo "Epidemiologist";
+            } else {
+              echo "Visiteur";
+            }
+          ?>
+        </span>
         <br><hr>
-        <span class="user-info">Les requettes possibles sont:</span>
-          <span class="infos-liste">Select</span>
-          <span class="infos-liste">Insert</span>
-          <span class="infos-liste">Delete</span>
-          <span class="infos-liste">Update</span>
-        <button class='disconnect-btn' type="submit" value="Submit">Logout</button>
+        <span class="user-info">Vos requêtes possibles sont:</span>
+          <?php 
+            echo "<span class='infos-liste'>Select</span>";
+            if ($profile_info["isEpidemiologist"]) {
+              echo "<span class='infos-liste'>Insert</span>";
+              echo "<span class='infos-liste'>Delete</span>";
+              echo "<span class='infos-liste'>Update</span>";
+            }
+          ?>
+        <a href="src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
           <div class='title-db'>Main</div>
           <div class='input-fields'>
-            <form action="hehe" method="post" accept-charset="utf-8">
-              <input type='text' placeholder='Request' class='input-line' name="username"></input>
+            <form action="db_main.php" method="post" accept-charset="utf-8">
+              <input type='text' placeholder='Make a request' class='input-line' name="request_user"></input>
               <INPUT type="image" src="img/send.png" value="" class="btn-send" ></INPUT>
             </form>
           </div>
           <div class="hey">
-            <div class="text-response">500 results in 0.25 sec</div>
+            <div class="text-response">
+              <?php 
+                if (isset($sth)){
+                  echo $sth->rowCount() . " results in ". $exec_time . " seconds";
+                }
+               ?>
+            </div>
             <div class="request-response">
               <table>
-                <thead>
-                  <tr>
-                    <th>ISO</th>
-                    <th>Pays</th>
-                    <th>Climat</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                </tbody>
+                <?php 
+                  if (isset($sth)) {
+                    if ($sth->rowCount() > 0) {
+                      $tmp_array=array();
+                      for($i = 0; $i < $sth->columnCount(); $i++) {
+                          $tmp_array[$i] = $sth->getColumnMeta($i);
+                      }
+                      echo "<thead><tr>";
+                      foreach($tmp_array as $key=>$value) {
+                          foreach($value as $k=>$v) {
+                              if($k=="name") {
+                                echo "<th>" . $v . "</th>";
+                              }
+                          }
+                      }
+                      echo "</tr></thead><tbody>";
+                      while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        foreach ($row as $key => $value) {
+                           echo "<td>" . $value . "</td>";
+                        }
+                        echo "</tr>";
+                      }    
+                      echo "</tbody>";              
+                    } 
+                  }
+                ?>
               </table>
             </div>
           </div>
       </div>
     </div>
     <div class="nav-bar">
-      <a href="db_main.html" class="nav-btn">M</a>
-      <a href="db_pages/db_1.html"  class="nav-btn">1</a>
-      <a href="db_pages/db_2.html"  class="nav-btn">2</a>
-      <a href="db_pages/db_3.html"  class="nav-btn">3</a>
-      <a href="db_pages/db_4.html"  class="nav-btn">4</a>
-      <a href="db_pages/db_5.html"  class="nav-btn">5</a>
-      <a href="db_pages/db_6.html"  class="nav-btn">6</a>
+      <a href="db_main.php" class="nav-btn">M</a>
+      <a href="db_pages/db_1.php"  class="nav-btn">1</a>
+      <a href="db_pages/db_2.php"  class="nav-btn">2</a>
+      <a href="db_pages/db_3.php"  class="nav-btn">3</a>
+      <a href="db_pages/db_4.php"  class="nav-btn">4</a>
+      <a href="db_pages/db_5.php"  class="nav-btn">5</a>
+      <a href="db_pages/db_6.php"  class="nav-btn">6</a>
     </div>
   </div>
 </body>
