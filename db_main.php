@@ -4,6 +4,14 @@
   include("src/profile.php");
   $profile_info = profile($_SESSION['id']);
 
+  $time_start = microtime(true);
+  $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+  $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  if (isset($_POST['request_user'])) {
+    $sth = $bdd->query($_POST['request_user']);
+  }
+  $time_end = microtime(true);
+  $exec_time = $time_end - $time_start;
 ?>
 
 <!DOCTYPE html>
@@ -38,163 +46,53 @@
               echo "<span class='infos-liste'>Update</span>";
             }
           ?>
-        <button class='disconnect-btn' type="submit" value="Submit">Logout</button>
+        <a href="src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
           <div class='title-db'>Main</div>
           <div class='input-fields'>
-            <form action="hehe" method="post" accept-charset="utf-8">
-              <input type='text' placeholder='Request' class='input-line' name="username"></input>
+            <form action="db_main.php" method="post" accept-charset="utf-8">
+              <input type='text' placeholder='Make a request' class='input-line' name="request_user"></input>
               <INPUT type="image" src="img/send.png" value="" class="btn-send" ></INPUT>
             </form>
           </div>
           <div class="hey">
-            <div class="text-response">500 results in 0.25 sec</div>
+            <div class="text-response">
+              <?php 
+                if (isset($sth)){
+                  echo $sth->rowCount() . " results in ". $exec_time . " seconds";
+                }
+               ?>
+            </div>
             <div class="request-response">
               <table>
                 <?php 
-
-
-               ?>
-                <thead>
-                  <tr>
-                    <th>ISO</th>
-                    <th>Pays</th>
-                    <th>Climat</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                  <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                  </tr>
-                </tbody>
+                  if (isset($sth)) {
+                    if ($sth->rowCount() > 0) {
+                      $tmp_array=array();
+                      for($i = 0; $i < $sth->columnCount(); $i++) {
+                          $tmp_array[$i] = $sth->getColumnMeta($i);
+                      }
+                      echo "<thead><tr>";
+                      foreach($tmp_array as $key=>$value) {
+                          foreach($value as $k=>$v) {
+                              if($k=="name") {
+                                echo "<th>" . $v . "</th>";
+                              }
+                          }
+                      }
+                      echo "</tr></thead><tbody>";
+                      while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        foreach ($row as $key => $value) {
+                           echo "<td>" . $value . "</td>";
+                        }
+                        echo "</tr>";
+                      }    
+                      echo "</tbody>";              
+                    } 
+                  }
+                ?>
               </table>
             </div>
           </div>

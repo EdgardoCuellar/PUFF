@@ -38,7 +38,7 @@
               echo "<span class='infos-liste'>Update</span>";
             }
           ?>
-        <button class='disconnect-btn' type="submit" value="Submit">Logout</button>
+        <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
           <div class='title-db'>Requete 6</div>

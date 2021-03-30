@@ -4,6 +4,7 @@
   include("../src/profile.php");
   $profile_info = profile($_SESSION['id']);
 
+  
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@
               echo "<span class='infos-liste'>Update</span>";
             }
           ?>
-        <button class='disconnect-btn' type="submit" value="Submit">Logout</button>
+        <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
           <div class='title-db'>Request 1</div>
