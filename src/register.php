@@ -17,14 +17,15 @@
             $req_username->execute(array($username));
             $user_exist = $req_username->rowCount();
             if ($user_exist == 0) {
-                $req_register = $bdd->prepare("INSERT INTO User(last_name, first_name, username, password, address) VALUES(?, ?, ?, ?, ?)");
-                $status = $req_register->execute(array($last_name, $first_name, $username, $password, $address));
+                $req_register = $bdd->prepare("INSERT INTO User(last_name, first_name, username, password, address, isEpidemiologist) VALUES(?, ?, ?, ?, ?, ?)");
+                $status = $req_register->execute(array($last_name, $first_name, $username, $password, $address, isset($isEpidemiologist)));
                 if(!empty($isEpidemiologist)){
                     if (isset($center) && isset($phone)) {
                         # Get id of user created
                         $req_id_user = $bdd->prepare("SELECT ID FROM User WHERE username = ?");
                         $req_id_user->execute(array($username));
                         $id = $req_id_user->fetch();
+                        error_log("ID:", $id);
                         # Insert the epidemiologist in db
                         $req_register_epi = $bdd->prepare("INSERT INTO Epidemiologist(ID_USER, phone, centre) VALUES(?, ?, ?)");
                         $status_epi = $req_register_epi->execute(array($id[0], $center, $phone));
