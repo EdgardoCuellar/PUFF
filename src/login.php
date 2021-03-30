@@ -4,7 +4,7 @@
     function login($username, $password){
         $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'puff-user', 'salade2fruit');
         $username = htmlspecialchars($username);
-        $password = htmlspecialchars($password);
+        $password = $password;
         if (isset($username) && isset($password)) {
             $req_login = $bdd->prepare('SELECT * FROM User WHERE username = ? LIMIT 1');
             $req_login->execute(array($username));
