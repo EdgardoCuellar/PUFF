@@ -72,8 +72,6 @@ button:focus {
 .input-line:focus {
   outline: none;
   border-color: #fff;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
 }
 
 .disconnect-btn {
@@ -89,15 +87,11 @@ button:focus {
   line-height: 2.5em;
   margin-top: 18em;
   margin-bottom: 25px;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
 }
 
 .disconnect-btn:hover {
   background: rgba(255, 200, 200, 0.15);
   color: rgb(255, 100, 100);
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
 }
 
 form {
@@ -117,8 +111,6 @@ form {
   font-size: 19px;
   font-size: 1.2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
 }
 
 .full-width {
@@ -279,8 +271,6 @@ tbody td {
   border: 2px solid #fff;
   border-radius: 100%;
   width: 46px;
-  -webkit-transition: all .15s ease-in-out;
-  transition: all .15s ease-in-out;
   color: #fff;
   text-decoration: none; 
 }

@@ -1,11 +1,16 @@
+<?php
+  session_start();
+  include("src/secure.php");
+  
+
+?>
+
 <!DOCTYPE html>
 <html>
 <title>PUFF DB</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/css_main.css">
 <link rel="stylesheet" href="css/gradient_animate.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
 <body>
   <div class="main">
