@@ -19,8 +19,7 @@
             if ($user_exist == 0) {
                 $req_register = $bdd->prepare("INSERT INTO User(last_name, first_name, username, password, address) VALUES(?, ?, ?, ?, ?)");
                 $status = $req_register->execute(array($last_name, $first_name, $username, $password, $address));
-                error_log($isEpidemiologist);
-                if($isEpidemiologist){
+                if(!empty($isEpidemiologist)){
                     if (isset($center) && isset($phone)) {
                         # Get id of user created
                         $req_id_user = $bdd->prepare("SELECT ID FROM User WHERE username = ?");
@@ -28,10 +27,8 @@
                         $id = $req_id_user->fetch();
                         # Insert the epidemiologist in db
                         $req_register_epi = $bdd->prepare("INSERT INTO Epidemiologist(ID_USER, phone, centre) VALUES(?, ?, ?)");
-                        $status_epi = $req_register_epi->execute(array($id, $isEpidemiologist, $center, $phone));
-                        if ($status_epi){
-                            $res = "Ok t'es inscrit l'épidémiologiste";
-                        }
+                        $status_epi = $req_register_epi->execute(array($id[0], $center, $phone));
+                        if ($status_epi) error_log("Epidemiologiste ajouté");
                     }else{
                         $res = "All fields must me complete for epidemiologist";
                     }
@@ -50,7 +47,6 @@
 
     if (isset($_POST['submit_register'])) {
         $res = register($_POST["firstname"], $_POST["name"], $_POST["username"], $_POST["password"], $_POST["address"], $_POST["isEpidemiologist"], $_POST["center"], $_POST["phone"]);
-        error_log($res);
         header('Location: ../index.html?' . $res . '#login');
     }
 ?>
