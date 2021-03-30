@@ -1,7 +1,7 @@
 <?php
   session_start();
   include("src/secure.php");
-  
+  $profile_info = profile($_SESSION['id']);
 
 ?>
 
@@ -17,7 +17,7 @@
     <div class='window'>
       <div class='overlay'></div>
       <div class="profile">
-        <span class="user-name">EDO</span>
+        <span class="user-name"> <?php echo $profile_info["username"]; ?> </span>
         <span class="user-type">Epidemiologiste</span>
         <br><hr>
         <span class="user-info">Les requettes possibles sont:</span>
