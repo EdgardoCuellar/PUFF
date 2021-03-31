@@ -8,6 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 <link rel="icon" href="img/Rickroll.jpg" />
 
+<script>
+  function displayCheck() {
+    var checkBox = document.getElementById("myCheck");
+    if (checkBox.checked == true){
+        document.getElementById("options1").style.opacity = 1;
+        document.getElementById("options2").style.opacity = 1;
+      } else {
+        document.getElementById("options1").style.opacity = 0.4;
+        document.getElementById("options2").style.opacity = 0.4;
+      }
+    }
+</script>
+
 <body>
   <div class="register-div" id="register">
     <div class='-line'></div>
@@ -23,15 +36,19 @@
                 <input type='text' placeholder='Address' class='input-line full-width' name="address" autocomplete="off"></input>
                 <input type='password' placeholder='Password' class='input-line full-width' name="password" autocomplete="off"></input>
                 <label class="container"><span class="checkspan">Epidémiologiste</span>
-                  <input type="checkbox" name="isEpidemiologist" value="Y">
+                  <input type="checkbox" name="isEpidemiologist" value="Y" id="myCheck" onclick="displayCheck()">
                   <span class="checkmark"></span>
                 </label>
-                <input type='text' placeholder='Center' class='input-line full-width options' name="center" autocomplete="off"></input>
-                <input type='text' placeholder='Phone' class='input-line full-width options' name="phone" autocomplete="off"></input>
+                <input type='text' placeholder='Center' class='input-line full-width' id="options1" name="center" autocomplete="off"></input>
+                <input type='text' placeholder='Phone' class='input-line full-width' id="options2" name="phone" autocomplete="off"></input>
                 <div><button class='register-btn full-width' type="submit" name="submit_register" value="Submit">Register</button></div>
               </form>
             </div>
-          <span class='error-txt'>already exist</span>
+          <span class='error-txt'><?php 
+            if  (isset($_GET["error_msg"])) {
+              echo $_GET["error_msg"]; 
+            }
+          ?></span>
       </div>
     </div>
     <div><a href="#login" class="goto">↓ Go to login ↓</a></div>
@@ -50,7 +67,11 @@
                 <div><button class='register-btn full-width' type="submit" name="submit_login" value="Submit">login</button></div>
               </form>
             </div>
-          <span class='error-txt'>already exist</span>
+          <span class='error-txt'><?php 
+            if (isset($_GET["error_msg"])) {
+              echo $_GET["error_msg"]; 
+            }
+          ?></span>
       </div>
     </div>
   </div>

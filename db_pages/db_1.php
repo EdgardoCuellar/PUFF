@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/css_main.css">
 <link rel="stylesheet" href="../css/gradient_animate.css">
+<link rel="icon" href="../img/Rickroll.jpg" />
 
 <body>
   <div class="main">

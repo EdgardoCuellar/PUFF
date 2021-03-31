@@ -4,7 +4,7 @@
     function register($first_name, $last_name, $username, $password, $address, $isEpidemiologist, $center, $phone){
         $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
         
-        if (isset($username) && isset($password) && isset($last_name) && isset($first_name) && isset($address)) {
+        if (!empty($username) && !empty($password) && !empty($last_name) && !empty($first_name) && !empty($address)) {
             
             $is_a_epidemiologist = 0;
             if ($isEpidemiologist == "Y"){
@@ -30,7 +30,10 @@
             if ($user_exist == 0) {
                 $req_register = $bdd->prepare("INSERT INTO User(last_name, first_name, username, password, address, isEpidemiologist) VALUES(?, ?, ?, ?, ?, ?)");
                 $status = $req_register->execute(array($last_name, $first_name, $username, $password, $address, $is_a_epidemiologist));
-                if ($status) error_log("la requete a fonctionné");
+                if ($status) {
+                     $res = "ok";
+                     error_log("la requete a fonctionné");
+                } 
                 if($is_a_epidemiologist){
                     # Get id of user created
                     $req_id_user = $bdd->prepare("SELECT ID FROM User WHERE username = ?");
@@ -42,7 +45,7 @@
                     $status_epi = $req_register_epi->execute(array($id[0], $center, $phone));
                     if ($status_epi) error_log("Epidemiologiste ajouté");
                     if ($status){ # l'insertion à fonctionné
-                        $res = "Registered !";
+                        $res = "ok";
                     }
                     error_log($res);
                 }
@@ -57,6 +60,12 @@
         
     if (isset($_POST['submit_register'])) {
         $res = register($_POST["firstname"], $_POST["name"], $_POST["username"], $_POST["password"], $_POST["address"], $_POST["isEpidemiologist"], $_POST["center"], $_POST["phone"]);
-        header('Location: ../db_main.php?');
+        if ($res=="ok") {
+            header('Location: ../db_main.php#');
+        } else { 
+            error_log($res);
+            header('Location: ../index.php?error_msg='.$res.'#register');
+        }
     }
+
     ?>

@@ -108,8 +108,12 @@ button:focus {
   width: 100%;
 }
 
-.options {
-  opacity: 0.85;
+#options1 {
+  opacity: 0.4;
+}
+
+#options2 {
+  opacity: 0.4;
 }
 
 .input-fields {
@@ -264,7 +268,18 @@ button:focus {
 
 
 .checkspan {
-  opacity: 0.95;
+  opacity: 0.9;
+}
+
+.checkspan:hover {
+  opacity: 1;
+}
+
+.checkspan input[type=checkbox]{
+  color: red;
+}
+.checkspan input:checked ~ .checkmark {
+  opacity: 0.5;
 }
 
 /* Hide the browser's default checkbox */
