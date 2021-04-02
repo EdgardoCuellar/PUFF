@@ -333,3 +333,7 @@ body::-webkit-scrollbar-thumb:hover {
   height: 28px;
   margin-top: 21px;
 }
+
+#error_msg{
+  font-weight: bold;
+}

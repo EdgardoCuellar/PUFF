@@ -8,7 +8,21 @@
   include "src/db_connect.php";
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   if (isset($_POST['request_user'])) {
-    $sth = $bdd->query($_POST['request_user']);
+    $query = trim($_POST['request_user']);
+    $can_make_query = false;
+    # Check si la commande est un SELECT ou non
+    if(str_split($query)[0] != 'S'){
+      # Check si l'user est bien un épidémiologiste
+      if ($profile_info["isEpidemiologist"]) $can_make_query = true;
+    }else{
+      # Si c'est un SELECT il peut la faire sans conditions
+      $can_make_query = true;
+    }
+    if ($can_make_query){
+      $sth = $bdd->query($_POST['request_user']);
+    }else{
+      $error = "Vous n'avez pas accès à cet commande";
+    }
   }
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
@@ -62,6 +76,10 @@
               <?php 
                 if (isset($sth)){
                   echo $sth->rowCount() . " results in ". $exec_time . " seconds";
+                }else if (isset($error)){
+                  ?>
+                  <span id="error_msg"><?= $error ?></span>
+                  <?php
                 }
                ?>
             </div>
