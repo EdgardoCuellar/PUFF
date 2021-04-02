@@ -1,7 +1,7 @@
 <?php
 
   	function profile($id){
-	    $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+		include 'db_connect.php';
 	    if (isset($id)) {
 	        $req_login = $bdd->prepare('SELECT * FROM User WHERE ID = ? LIMIT 1');
 	        $req_login->execute(array($id));

@@ -2,7 +2,8 @@
     session_start();
 
     function login($username, $password){
-        $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+        include 'db_connect.php';
+        
         $username = htmlspecialchars($username);
         if (!empty($username) && !empty($password)) {
             $req_login = $bdd->prepare('SELECT * FROM User WHERE username = ? LIMIT 1');

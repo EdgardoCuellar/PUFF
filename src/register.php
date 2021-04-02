@@ -2,7 +2,7 @@
     session_start();
     
     function register($first_name, $last_name, $username, $password, $address, $isEpidemiologist, $center, $phone){
-        $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+        include 'db_connect.php';
         
         if (!empty($username) && !empty($password) && !empty($last_name) && !empty($first_name) && !empty($address)) {
             
