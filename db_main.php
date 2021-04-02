@@ -19,7 +19,12 @@
       $can_make_query = true;
     }
     if ($can_make_query){
-      $sth = $bdd->query($_POST['request_user']);
+      try {
+        $sth = $bdd->query($_POST['request_user']);
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
+      }catch(PDOException $e){
+        $error = "Erreur lors de l'execution de la requéte";
+      }
     }else{
       $error = "Vous n'avez pas accès à cet commande";
     }
@@ -41,6 +46,7 @@
     <div class='window'>
       <div class='overlay'></div>
       <div class="profile">
+        <span class="user-name"><?= $profile_info["first_name"] ?> <?= $profile_info["last_name"] ?></span>
         <span class="user-name"> <?php echo $profile_info["username"]; ?> </span>
         <span class="user-type">
           <?php 
@@ -101,7 +107,7 @@
                           }
                       }
                       echo "</tr></thead><tbody>";
-                      while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                      while($row) {
                         echo "<tr>";
                         foreach ($row as $key => $value) {
                            echo "<td>" . $value . "</td>";
