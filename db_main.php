@@ -21,7 +21,6 @@
     if ($can_make_query){
       try {
         $sth = $bdd->query($_POST['request_user']);
-        $row = $sth->fetch(PDO::FETCH_ASSOC);
       }catch(PDOException $e){
         $error = "Erreur lors de l'execution de la requéte";
       }
@@ -107,7 +106,7 @@
                           }
                       }
                       echo "</tr></thead><tbody>";
-                      while($row) {
+                      while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         foreach ($row as $key => $value) {
                            echo "<td>" . $value . "</td>";
