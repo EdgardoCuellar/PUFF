@@ -4,6 +4,12 @@
   include("../src/profile.php");
   $profile_info = profile($_SESSION['id']);
 
+  $time_start = microtime(true);
+  $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+  $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $sth = $bdd->query("SELECT * FROM User");
+  $time_end = microtime(true);
+  $exec_time = $time_end - $time_start;
 ?>
 
 <!DOCTYPE html>
@@ -44,25 +50,42 @@
         <div class='content'>
           <div class='title-db'>Request 3</div>
           <div class="hey">
-            <div class="text-response">500 results in 0.25 sec</div>
+            <div class="text-response">
+              <?php 
+                if (isset($sth)){
+                  echo $sth->rowCount() . " results in ". $exec_time . " seconds";
+                }
+               ?>
+            </div>
             <div class="request-response">
               <table>
-                <thead>
-                  <tr>
-                    <th>Vaccin</th>
-                    <th>Countries names</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>CNBG</td>
-                    <td>China</td>
-                  </tr>
-                  <tr>
-                    <td>Moderna</td>
-                    <td>Belgium, Bulgaria, Canada</td>
-                  </tr>
-                </tbody>
+                <?php 
+                  if (isset($sth)) {
+                    if ($sth->rowCount() > 0) {
+                      $tmp_array=array();
+                      for($i = 0; $i < $sth->columnCount(); $i++) {
+                          $tmp_array[$i] = $sth->getColumnMeta($i);
+                      }
+                      echo "<thead><tr>";
+                      foreach($tmp_array as $key=>$value) {
+                          foreach($value as $k=>$v) {
+                              if($k=="name") {
+                                echo "<th>" . $v . "</th>";
+                              }
+                          }
+                      }
+                      echo "</tr></thead><tbody>";
+                      while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        foreach ($row as $key => $value) {
+                           echo "<td>" . $value . "</td>";
+                        }
+                        echo "</tr>";
+                      }    
+                      echo "</tbody>";              
+                    } 
+                  }
+                ?>
               </table>
             </div>
           </div>
