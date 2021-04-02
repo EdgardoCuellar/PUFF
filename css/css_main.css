@@ -249,11 +249,15 @@ th {
   font-size: 15px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 tbody td {
   border: 1px solid #FFF;
   padding-left: 2px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 /* NAV BAR */
