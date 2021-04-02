@@ -7,10 +7,15 @@
   $time_start = microtime(true);
   include '../src/db_connect.php';
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT v.name, p.ISO_CODE 
-FROM Vaccines v 
-LEFT JOIN Producers p
-ON p.vaccine = v.ID;");
+  $sth = $bdd->query("SELECT name, country 
+  FROM (
+      SELECT v.name, p.ISO_CODE 
+      FROM Vaccines v 
+      LEFT JOIN Producers p
+      ON p.vaccine = v.ID
+  ) s
+  NATURAL JOIN Country c
+  ORDER BY name ASC;");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
 ?>
