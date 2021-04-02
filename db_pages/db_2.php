@@ -7,7 +7,14 @@
   $time_start = microtime(true);
   $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT * FROM User");
+  $sth = $bdd->query("SELECT * FROM Country c WHERE c.ISO_CODE = (
+    SELECT ISO_CODE 
+    FROM Vaccinations v
+    GROUP BY ISO_CODE
+    ORDER BY SUM(v.vaccinations) DESC
+    LIMIT 1
+)
+;");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
 ?>

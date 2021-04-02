@@ -7,7 +7,15 @@
   $time_start = microtime(true);
   $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT * FROM User");
+  $sth = $bdd->query("SELECT c.country, ((SELECT s.sum_patients FROM (
+        SELECT SUM(h.hosp_patients) sum_patients, ISO_CODE 
+        FROM Hospitals h
+        WHERE h.date='2021-01-01'
+        GROUP BY h.ISO_CODE 
+    ) s
+    WHERE c.ISO_CODE=s.ISO_CODE)
+    / c.population) 
+FROM country c");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
 ?>
@@ -68,13 +76,8 @@
                           $tmp_array[$i] = $sth->getColumnMeta($i);
                       }
                       echo "<thead><tr>";
-                      foreach($tmp_array as $key=>$value) {
-                          foreach($value as $k=>$v) {
-                              if($k=="name") {
-                                echo "<th>" . $v . "</th>";
-                              }
-                          }
-                      }
+                      echo "<th>" . "Name". "</th>";
+                      echo "<th>" . "proportion". "</th>";
                       echo "</tr></thead><tbody>";
                       while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";

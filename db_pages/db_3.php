@@ -7,7 +7,10 @@
   $time_start = microtime(true);
   $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT * FROM User");
+  $sth = $bdd->query("SELECT p.ISO_CODE, v.name 
+FROM Vaccines v 
+LEFT JOIN Producers p
+ON p.vaccine = v.ID;");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
 ?>
