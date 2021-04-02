@@ -18,6 +18,9 @@
 FROM country c");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
+
+ 
+  $tmp_graph_array=array();
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +31,30 @@ FROM country c");
 <link rel="stylesheet" href="../css/graph.css">
 <link rel="stylesheet" href="../css/gradient_animate.css">
 <link rel="icon" href="../img/Rickroll.jpg" />
+
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  theme: "light2",
+  title:{
+    text: "Gold Reserves"
+  },
+  axisY: {
+    title: "Gold Reserves (in tonnes)"
+  },
+  data: [{
+    type: "column",
+    yValueFormatString: "#,##0.## tonnes",
+    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+  }]
+});
+chart.render();
+ 
+}
+</script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <body>
   <div class="main">
@@ -76,13 +103,23 @@ FROM country c");
                           $tmp_array[$i] = $sth->getColumnMeta($i);
                       }
                       echo "<thead><tr>";
-                      echo "<th>" . "Name". "</th>";
+                      echo "<th>" . "country". "</th>";
                       echo "<th>" . "proportion". "</th>";
                       echo "</tr></thead><tbody>";
                       while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
+                        $tmp_country;
                         foreach ($row as $key => $value) {
                            echo "<td>" . $value . "</td>";
+                           if ($key != "country") {
+                            if (is_null($value)) {
+                              array_push($tmp_graph_array, array("y" => 0, "label" => $tmp_country ));
+                            }else {
+                              array_push($tmp_graph_array, array("y" => $value, "label" => $tmp_country));
+                            }
+                           }else {
+                            $tmp_country=$value;
+                           }
                         }
                         echo "</tr>";
                       }    
@@ -91,6 +128,21 @@ FROM country c");
                   }
                 ?>
               </table>
+            </div>
+            <div class="graph-response" id="chartContainer">
+              <?php 
+              //$dataPoints=$tmp_graph_array;
+             
+$dataPoints = array( 
+  array("y" => 3373.64, "label" => "Germany" ),
+  array("y" => 2435.94, "label" => "France" ),
+  array("y" => 1842.55, "label" => "China" ),
+  array("y" => 1828.55, "label" => "Russia" ),
+  array("y" => 1039.99, "label" => "Switzerland" ),
+  array("y" => 765.215, "label" => "Japan" ),
+  array("y" => 612.453, "label" => "Netherlands" )
+);
+                ?>
             </div>
           </div>
       </div>
