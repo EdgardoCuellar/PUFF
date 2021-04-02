@@ -7,7 +7,8 @@
   $time_start = microtime(true);
   $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT * FROM User");
+  $sth = $bdd->query("SELECT A.ISO_CODE, B.`date`, (B.hosp_patients - A.hosp_patients) AS delta_patients
+FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
 ?>
@@ -17,7 +18,6 @@
 <title>PUFF DB</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/css_main.css">
-<link rel="stylesheet" href="../css/graph.css">
 <link rel="stylesheet" href="../css/gradient_animate.css">
 <link rel="icon" href="../img/Rickroll.jpg" />
 
