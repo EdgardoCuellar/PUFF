@@ -5,7 +5,7 @@
   $profile_info = profile($_SESSION['id']);
 
   $time_start = microtime(true);
-  $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+  include '../src/db_connect.php';
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sth = $bdd->query("SELECT name FROM Vaccines v WHERE ID IN (
     SELECT vaccine FROM Producers p WHERE ISO_CODE = 'BEL'

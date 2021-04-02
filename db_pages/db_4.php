@@ -5,7 +5,7 @@
   $profile_info = profile($_SESSION['id']);
 
   $time_start = microtime(true);
-  $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+  include '../src/db_connect.php';
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sth = $bdd->query("SELECT c.country, ((SELECT s.sum_patients FROM (
         SELECT SUM(h.hosp_patients) sum_patients, ISO_CODE 

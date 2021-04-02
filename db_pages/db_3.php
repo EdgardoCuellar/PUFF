@@ -5,9 +5,9 @@
   $profile_info = profile($_SESSION['id']);
 
   $time_start = microtime(true);
-  $bdd = new PDO('mysql:host=127.0.0.1;dbname=Puff', 'root', '');
+  include '../src/db_connect.php';
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT p.ISO_CODE, v.name 
+  $sth = $bdd->query("SELECT v.name, p.ISO_CODE 
 FROM Vaccines v 
 LEFT JOIN Producers p
 ON p.vaccine = v.ID;");
@@ -65,28 +65,24 @@ ON p.vaccine = v.ID;");
                 <?php 
                   if (isset($sth)) {
                     if ($sth->rowCount() > 0) {
-                      $tmp_array=array();
-                      for($i = 0; $i < $sth->columnCount(); $i++) {
-                          $tmp_array[$i] = $sth->getColumnMeta($i);
-                      }
-                      echo "<thead><tr>";
-                      foreach($tmp_array as $key=>$value) {
-                          foreach($value as $k=>$v) {
-                              if($k=="name") {
-                                echo "<th>" . $v . "</th>";
-                              }
-                          }
-                      }
-                      echo "</tr></thead><tbody>";
-                      while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>";
+                      $tmp_array = array();
+                      $current_vaccine;
+                      $i = 0;
+                      $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+                      foreach ($rows as $row) {
                         foreach ($row as $key => $value) {
-                           echo "<td>" . $value . "</td>";
+                          if ($current_vaccine != $value && $i % 2 == 0) {
+                            if ($i != 0) echo '</ul>';
+                            $current_vaccine = $value;
+                            echo '<b>' . $value . '</b>';
+                            echo "<ul>";
+                          }else{
+                            if ($value != $current_vaccine) echo '<li>' . $value . '</li>';
+                          }
+                          $i += 1;
                         }
-                        echo "</tr>";
-                      }    
-                      echo "</tbody>";              
-                    } 
+                      }
+                    }
                   }
                 ?>
               </table>
