@@ -6,11 +6,18 @@
 
   $time_start = microtime(true);
   include '../src/db_connect.php';
-  $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sth = $bdd->query("SELECT A.ISO_CODE, B.`date`, (B.hosp_patients - A.hosp_patients) AS delta_patients
-FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
+  if (isset($_POST["country_name"]) && $_POST["country_name"] != "nothing") {
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if ($_POST["country_name"]=="all") {
+    $sth = $bdd->query("SELECT A.ISO_CODE, B.`date`, (B.hosp_patients - A.hosp_patients) AS delta_patients
+  FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
+    } else {
+    $sth = $bdd->query("SELECT A.ISO_CODE, B.`date`, (B.hosp_patients - A.hosp_patients) AS delta_patients FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1) WHERE A.ISO_CODE='" . $_POST["country_name"] . "' AND B.ISO_CODE='" . $_POST["country_name"] . "'");
+    }
+  }
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
+  $tmp_graph_array=array();
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +26,18 @@ FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../css/css_main.css">
 <link rel="stylesheet" href="../css/gradient_animate.css">
+<?php 
+  if (isset($_POST["country_name"]) && $_POST["country_name"] != "nothing" && $_POST["country_name"] != "all"){
+    echo "<link rel='stylesheet' href='../css/graph.css'>";
+  }
+ ?>
 <link rel="icon" href="../img/Rickroll.jpg" />
+
+<script>
+  function change(){
+      document.getElementById("select_form").submit();
+  }
+</script>
 
 <body>
   <div class="main">
@@ -50,7 +68,21 @@ FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
       </div>
         <div class='content'>
           <div class='title-db'>Request 5</div>
-          <div class="hey">
+          <div class="hey" style="height: 450px;">
+            <span class="choice-select">Country </span>
+            <form action="#" method="post" accept-charset="utf-8" id="select_form"> 
+              <select id="country_select" onchange="change()" name="country_name">
+                  <option value="nothing">-Select country-</option>
+                  <option value="all">All countries</option>
+                  <?php 
+                    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $sth_crountries = $bdd->query("SELECT c.country, c.ISO_CODE FROM country c");
+                    foreach ($sth_crountries as $key => $value) {
+                      echo "<option value='" . $value["ISO_CODE"] . "'>" . $value["country"] . "</option>";
+                    }
+                   ?>
+              </select>
+            </form>
             <div class="text-response">
               <?php 
                 if (isset($sth)){
@@ -76,11 +108,16 @@ FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
                           }
                       }
                       echo "</tr></thead><tbody>";
+                      $i_pos=0;
                       while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         foreach ($row as $key => $value) {
                            echo "<td>" . $value . "</td>";
+                        }                  
+                        if (isset($_POST["country_name"]) && $_POST["country_name"] != "nothing" && $_POST["country_name"] != "all") {
+                          array_push($tmp_graph_array, array("x" => $i_pos, "y" => $row["delta_patients"]));
                         }
+                        $i_pos+=1;
                         echo "</tr>";
                       }    
                       echo "</tbody>";              
@@ -89,6 +126,32 @@ FROM Hospitals A INNER JOIN Hospitals B ON B.`date` = (A.`date` + 1)");
                 ?>
               </table>
             </div>
+            <?php 
+              if (isset($_POST["country_name"]) && $_POST["country_name"] != "nothing") {
+                $dataPoints = $tmp_graph_array; 
+              }         
+            ?>
+            <script>
+              window.onload = function () {
+               
+              var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                animationEnabled: true,
+                zoomEnabled: true,
+                title: {
+                  text: "Evolution du nombre de patient hospitalisé"
+                },
+                data: [{
+                  type: "area",     
+                  dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                }]
+              });
+              chart.render();
+               
+              }
+            </script>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <div class="graph-response" id="chartContainer"></div>
           </div>
       </div>
     </div>

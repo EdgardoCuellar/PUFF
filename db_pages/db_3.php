@@ -71,7 +71,7 @@
                   if (isset($sth)) {
                     if ($sth->rowCount() > 0) {
                       $tmp_array = array();
-                      $current_vaccine;
+                      $current_vaccine=null;
                       $i = 0;
                       $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
                       foreach ($rows as $row) {

@@ -14,3 +14,40 @@
   height: 60%;
   width: 88%;
 }
+
+.choice-select {
+  display: block;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+#country_select {
+  display: block;
+ margin-left: 10px;
+ font-size: 14px;
+ background: none;
+ width: 240px;
+ height: 28px;
+ border: 1px solid #EEE;
+ color: #EEE;
+ margin-bottom: 10px;
+}
+
+#country_select option{
+ color: #111;
+}
+
+/* SCROLL BAR STYLE */
+#country_select::-webkit-scrollbar {
+  width: 0.4em;
+  height: 0.4em;
+}
+ 
+#country_select::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+#country_select::-webkit-scrollbar-thumb {
+  background-color: #1565C0;
+  outline: 1px solid slategrey;
+}
