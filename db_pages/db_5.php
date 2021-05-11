@@ -76,7 +76,7 @@
                   <option value="all">All countries</option>
                   <?php 
                     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $sth_crountries = $bdd->query("SELECT c.country, c.ISO_CODE FROM country c");
+                    $sth_crountries = $bdd->query("SELECT c.country, c.ISO_CODE FROM Country c");
                     foreach ($sth_crountries as $key => $value) {
                       echo "<option value='" . $value["ISO_CODE"] . "'>" . $value["country"] . "</option>";
                     }

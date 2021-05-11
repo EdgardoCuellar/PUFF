@@ -15,7 +15,7 @@
     ) s
     WHERE c.ISO_CODE=s.ISO_CODE)
     / c.population) 
-FROM country c");
+FROM Country c");
   $time_end = microtime(true);
   $exec_time = $time_end - $time_start;
  
