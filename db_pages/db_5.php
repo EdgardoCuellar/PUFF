@@ -69,7 +69,7 @@
         <div class='content'>
           <div class='title-db'>Request 5</div>
           <div class="hey" style="height: 450px;">
-            <span class="choice-select">Country </span>
+            <span class="choice-select">Country - <?php if (isset($_POST["country_name"])){echo $_POST["country_name"];} ?></span>
             <form action="#" method="post" accept-charset="utf-8" id="select_form"> 
               <select id="country_select" onchange="change()" name="country_name">
                   <option value="nothing">-Select country-</option>
