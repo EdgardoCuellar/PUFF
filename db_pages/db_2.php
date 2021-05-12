@@ -55,7 +55,7 @@
         <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
-          <div class='title-db'>Request 2</div>
+          <div class='title-db'>Request 2: <span class="phrase">Sélectionnez le pays qui a administré le plus grand nombre total de vaccins</span></div>
           <div class="hey">
             <div class="text-response">
               <?php 

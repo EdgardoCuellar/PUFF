@@ -53,7 +53,7 @@ AND ID IN (
         <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
-          <div class='title-db'>Requete 6</div>
+          <div class='title-db'>Requete 6: <span class="phrase">Sélectionnez le nom des vaccins disponibles à la fois en Belgique et en France</span></div>
           <div class="hey">
             <div class="text-response">
               <?php 

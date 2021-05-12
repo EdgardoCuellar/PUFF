@@ -48,7 +48,7 @@
         <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
-          <div class='title-db'>Request 1</div>
+          <div class='title-db'>Request 1: <span class="phrase">Sélectionnez les pays qui, au même moment, ont eu au moins 5000 personnes hospitalisées</span></div>
           <div class="hey">
             <div class="text-response">
               <?php 

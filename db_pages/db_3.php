@@ -56,7 +56,7 @@
         <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
-          <div class='title-db'>Request 3</div>
+          <div class='title-db'>Request 3: <span class="phrase">Pour chaque vaccin, sélectionnez le nom des pays qui l’utilisent</span></div>
           <div class="hey">
             <div class="text-response">
               <?php 

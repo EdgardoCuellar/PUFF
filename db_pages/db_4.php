@@ -59,7 +59,7 @@ FROM Country c");
         <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
-          <div class='title-db'>Request 4</div>
+          <div class='title-db'>Request 4: <span class="phrase">La proportion de la population hospitalisée pour chaque pays, le 1er janvier 2021</span></div>
           <div class="hey">
             <div class="text-response">
               <?php 

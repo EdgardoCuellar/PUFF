@@ -67,7 +67,7 @@
         <a href="../src/disconnect.php" class='disconnect-btn' type="submit" value="Submit">Logout</a>
       </div>
         <div class='content'>
-          <div class='title-db'>Request 5</div>
+          <div class='title-db'>Request 5: <span class="phrase">Calculez l’évolution, pour chaque jour et chaque pays, du nombre de patients hospitalisés</span></div>
           <div class="hey" style="height: 450px;">
             <span class="choice-select">Country - <?php if (isset($_POST["country_name"])){echo $_POST["country_name"];} ?></span>
             <form action="#" method="post" accept-charset="utf-8" id="select_form"> 
