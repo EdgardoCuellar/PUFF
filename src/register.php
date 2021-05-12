@@ -29,7 +29,7 @@
             
             if ($user_exist == 0) {
                 $req_register = $bdd->prepare("INSERT INTO User(last_name, first_name, username, password, address, isEpidemiologist) VALUES(?, ?, ?, ?, ?, ?)");
-                $status = $req_register->execute(array($last_name, $first_name, $username, $password, $address, $is_a_epidemiologist));
+                $status = $req_register->execute(array($last_name, $first_name, $username, $password, $address, $is_a_epidemiologist ? 0x1 : 0x0));
                 if ($status) {
                      $res = "ok";
                      error_log("la requete a fonctionné");
